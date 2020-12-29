@@ -6,7 +6,7 @@ const key = "e037f1c3aa9c882f329e8dff5c72d3fd";
 
 btnWeather.onclick = function (){
     const city = txtCity.value;
-    const url = `http://api.openweathermap.org/data/2.5/weather?id={city ID}&appid=${key}`;
+    const url = `http://api.openweathermap.org/data/2.5/weather?q={city name}&appid=${key}`;
     console.log(url);
     fetch(url).then(response => {
     response.json().then(json => {
