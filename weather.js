@@ -1,32 +1,32 @@
-const btnWeather = document.getElementById("btnWeather");
-const txtCity = document.getElementById("txtCity");
-const resultOut = document.getElementById("result");
-const key = "e037f1c3aa9c882f329e8dff5c72d3fd";
+var btnWeather = document.getElementById("btnWeather");
+var txtCity = document.getElementById("txtCity");
+var resultOut = document.getElementById("result");
+var key = "d16ad09ee7b645660c202ca363ac444f";
 
 
 btnWeather.onclick = function (){
-    const city = txtCity.value;
-    const url = `http://api.openweathermap.org/data/2.5/weather?q={city name}&appid=${key}`;
-    console.log(url);
-    fetch(url).then(response => {
-    response.json().then(json => {
+    var city = txtCity.value;
+    var url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`;
+    // console.log(url);
+    fetch(url)
+    .then(response => {response.json().then(json => {
         let data = json;
-        console.log(data);
+        // console.log(data);
         //store data;
         let output = formatResponse(data);
         resultOut.innerHTML = output;
         });
     });
-}
+};
 
 function kelvinToFahrenheit(kTemp){
     const fTemp = kTemp * (9/5) - 459.67;
     return fTemp;
-}
+};
 
 function msToMPH(ms){
     return ms * 2.237;
-}
+};
 
 function formatResponse(data){
     let conditions = "";
@@ -43,8 +43,8 @@ function formatResponse(data){
 
 let out = `<p><strong>Current Conditions for ${data.name}</strong></p>
 <p><strong>Temperature:</strong> ${Math.round(kelvinToFahrenheit(data.main.temp))}F<br/>
-<p><strong>Humidity:</strong> ${data.main.humidity}%,br/>
-<p><strong>Wind:</strong> ${data.wind.deg} degrees at ${Math.round(msToMPH(data.wind.speed))} MPH<br/>
+<p><strong>Humidity:</strong> ${data.main.humidity}%<br/>
+<p><strong>Wind Speed:</strong> ${Math.round(msToMPH(data.wind.speed))} MPH<br/>
 <p>${conditions}</p>`;
 return(out);
         }
