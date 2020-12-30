@@ -1,6 +1,7 @@
 var btnWeather = document.getElementById("btnWeather");
 var txtCity = document.getElementById("txtCity");
 var resultOut = document.getElementById("result");
+var btnForecast = document.getElementById("btnForecast");
 var key = "d16ad09ee7b645660c202ca363ac444f";
 
 
@@ -11,7 +12,7 @@ btnWeather.onclick = function (){
     fetch(url)
     .then(response => {response.json().then(json => {
         let data = json;
-        // console.log(data);
+        console.log(data);
         //store data;
         let output = formatResponse(data);
         resultOut.innerHTML = output;
@@ -29,7 +30,7 @@ function msToMPH(ms){
 };
 
 function formatResponse(data){
-    let conditions = "";
+    var conditions = "";
     if(data.weather.length>1){
         for(var i = 0; i < data.weather.length; i++ ){
             conditions += data.weather[i].main;
@@ -41,7 +42,7 @@ function formatResponse(data){
         conditions += data.weather[0].main;
     }
 
-let out = `<p><strong>Current Conditions for ${data.name}</strong></p>
+var out = `<p><strong>Current Conditions for ${data.name}</strong></p>
 <p><strong>Temperature:</strong> ${Math.round(kelvinToFahrenheit(data.main.temp))}F<br/>
 <p><strong>Humidity:</strong> ${data.main.humidity}%<br/>
 <p><strong>Wind Speed:</strong> ${Math.round(msToMPH(data.wind.speed))} MPH<br/>
